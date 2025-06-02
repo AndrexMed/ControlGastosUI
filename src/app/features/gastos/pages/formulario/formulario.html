@@ -1,4 +1,8 @@
-<h1 class="">Registro de Gastos</h1>
+<h1
+  class="text-3xl font-bold text-gray-800 mb-4 border-b-2 border-blue-500 pb-2"
+>
+  Formulario de Registro de Gastos
+</h1>
 
 <form [formGroup]="form" (ngSubmit)="submit()" class="">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -54,7 +58,10 @@
         <mat-form-field class="w-1/2">
           <mat-label>Tipo de gasto</mat-label>
           <mat-select formControlName="tipoGastoId">
-            <mat-option *ngFor="let tipo of tiposGasto" [value]="tipo.tipoGastoId">
+            <mat-option
+              *ngFor="let tipo of tiposGasto"
+              [value]="tipo.tipoGastoId"
+            >
               {{ tipo.nombre }}
             </mat-option>
           </mat-select>
@@ -82,6 +89,8 @@
     <button mat-button color="primary" type="button" (click)="agregarDetalle()">
       Agregar gasto
     </button>
+
+    <div class="mb-4 border-b-2 border-blue-500 pb-2"></div>
   </div>
 
   <div>

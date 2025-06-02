@@ -44,17 +44,36 @@
 
     <ng-container matColumnDef="fondo">
       <th mat-header-cell *matHeaderCellDef>Fondo</th>
-      <td mat-cell *matCellDef="let m">{{ m.fondoMonetarioNombre }}</td>
+      <td mat-cell *matCellDef="let m">{{ m.fondoMonetario }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="comercio">
-      <th mat-header-cell *matHeaderCellDef>Comercio</th>
+    <ng-container matColumnDef="observaciones">
+      <th mat-header-cell *matHeaderCellDef>Observaciones</th>
+      <td mat-cell *matCellDef="let m">{{ m.observaciones }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="tipoDocumento">
+      <th mat-header-cell *matHeaderCellDef>Tipo Documento</th>
+      <td mat-cell *matCellDef="let m">{{ m.tipoDocumento }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nombreComercio">
+      <th mat-header-cell *matHeaderCellDef>Nombre Comercio</th>
       <td mat-cell *matCellDef="let m">{{ m.nombreComercio }}</td>
     </ng-container>
 
     <ng-container matColumnDef="montoTotal">
       <th mat-header-cell *matHeaderCellDef>Monto Total</th>
       <td mat-cell *matCellDef="let m">{{ m.montoTotal | currency }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let m">
+        <button mat-icon-button title="Ver Detalle">
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columnas"></tr>

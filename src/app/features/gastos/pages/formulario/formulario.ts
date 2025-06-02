@@ -19,8 +19,11 @@ import {
 } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { FondoService } from '../../../../core/services/fondo-service';
 import { TipoGastoService } from '../../../../core/services/tipo-gasto-service';
+import { forkJoin } from 'rxjs';
+import { SobregiroDialog } from './sobregiro-dialog/sobregiro-dialog';
 
 const MATERIAL_MODULES = [
   MatFormFieldModule,
@@ -48,6 +51,7 @@ export class Formulario {
     private fb: FormBuilder,
     private gastoService: GastoService,
     private snack: MatSnackBar,
+    private dialog: MatDialog,
     private fondoService: FondoService,
     private tipoGastoService: TipoGastoService
   ) {
@@ -63,28 +67,22 @@ export class Formulario {
 
   ngOnInit(): void {
     this.agregarDetalle(); // Inicializa con una línea
-    this.getFondos(); // Carga los fondos al iniciar
-    this.getTipoGastos(); // Carga los tipos de gastos al iniciar
+    this.cargarDatosIniciales();
   }
 
-  getFondos() {
-    this.fondoService.getFondos().subscribe({
-      next: (fondos: any[]) => {
+  cargarDatosIniciales() {
+    forkJoin({
+      fondos: this.fondoService.getFondos(),
+      tipos: this.tipoGastoService.getAll(),
+    }).subscribe({
+      next: ({ fondos, tipos }) => {
         this.fondos = fondos;
-      },
-      error: () => {
-        this.snack.open('Error al cargar fondos ❌', '', { duration: 3000 });
-      },
-    });
-  }
-
-  getTipoGastos() {
-    this.tipoGastoService.getAll().subscribe({
-      next: (tipos: any[]) => {
         this.tiposGasto = tipos;
       },
       error: () => {
-        this.snack.open('Error al cargar los tipos ❌', '', { duration: 3000 });
+        this.snack.open('Error al cargar datos iniciales ❌', '', {
+          duration: 3000,
+        });
       },
     });
   }
@@ -128,7 +126,10 @@ export class Formulario {
                 `Gasto tipo ${a.tipoGastoId}: Presupuesto ${a.presupuesto}, Ejecutado ${a.ejecutado}`
             )
             .join('\n');
-          alert('⚠️ Sobregiro detectado:\n' + alertas);
+          // alert('⚠️ Sobregiro detectado:\n' + alertas);
+          this.dialog.open(SobregiroDialog, {
+            data: { alertas },
+          });
         } else {
           this.snack.open('Gasto registrado con éxito ✅', '', {
             duration: 3000,

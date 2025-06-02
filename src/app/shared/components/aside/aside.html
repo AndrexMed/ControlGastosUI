@@ -109,10 +109,72 @@
           class="text-sm text-gray-600 hover:text-indigo-600"
           >Registro de Gastos</a
         >
+
+        <a
+          routerLink="/crear-deposito"
+          class="text-sm text-gray-600 hover:text-indigo-600"
+          >Registro de Depositos</a
+        >
+
+        <a
+          routerLink="/crear-presupuesto"
+          class="text-sm text-gray-600 hover:text-indigo-600"
+          >Presupuestos</a
+        >
+      </div>
+    </div>
+
+    <!-- Consultas y Reportes -->
+    <div>
+      <button
+        class="w-full flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-indigo-100 transition rounded"
+        (click)="toggleSubmenu('configuracion')"
+      >
+        <div class="flex items-center">
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 8v4l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span *ngIf="!isCollapsed" class="ml-3">Consultas y Reportes</span>
+        </div>
+        <svg
+          *ngIf="!isCollapsed"
+          class="w-4 h-4 transform transition-transform duration-200"
+          [ngClass]="activeSubmenu === 'configuracion' ? 'rotate-90' : ''"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </button>
+
+      <!-- Submenú -->
+      <div
+        *ngIf="!isCollapsed && activeSubmenu === 'configuracion'"
+        class="ml-10 mt-1 flex flex-col space-y-1"
+      >
         <a
           routerLink="/listado-gastos"
           class="text-sm text-gray-600 hover:text-indigo-600"
           >Listado de gastos</a
+        >
+        <a
+          routerLink="/preferencias"
+          class="text-sm text-gray-600 hover:text-indigo-600"
+          >Gráfico Comparativo de Presupuesto y Ejecución</a
         >
       </div>
     </div>
@@ -135,7 +197,7 @@
           >
             <path d="M12 8v4l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <span *ngIf="!isCollapsed" class="ml-3">Configuración</span>
+          <span *ngIf="!isCollapsed" class="ml-3">Mantenimientos</span>
         </div>
         <svg
           *ngIf="!isCollapsed"
@@ -162,12 +224,12 @@
         <a
           routerLink="/perfil"
           class="text-sm text-gray-600 hover:text-indigo-600"
-          >Perfil</a
+          >Tipos de Gastos</a
         >
         <a
           routerLink="/preferencias"
           class="text-sm text-gray-600 hover:text-indigo-600"
-          >Preferencias</a
+          >Fondos Monetarios</a
         >
       </div>
     </div>

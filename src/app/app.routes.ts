@@ -11,10 +11,17 @@ export const routes: Routes = [
     loadComponent: () => import('./features/home/home').then((m) => m.Home),
   },
   {
-    path: 'listado-presupuestos',
+    path: 'crear-gasto',
     loadComponent: () =>
-      import('./features/presupuestos/pages/listado/listado').then(
-        (m) => m.Listado
+      import('./features/gastos/pages/formulario/formulario').then(
+        (m) => m.Formulario
+      ),
+  },
+  {
+    path: 'crear-deposito',
+    loadComponent: () =>
+      import('./features/depositos/pages/formulario/formulario').then(
+        (m) => m.Formulario
       ),
   },
   {
@@ -24,16 +31,17 @@ export const routes: Routes = [
         (m) => m.Formulario
       ),
   },
+
   {
     path: 'listado-gastos',
     loadComponent: () =>
       import('./features/gastos/pages/listado/listado').then((m) => m.Listado),
   },
   {
-    path: 'crear-gasto',
+    path: 'grafico-comparativo',
     loadComponent: () =>
-      import('./features/gastos/pages/formulario/formulario').then(
-        (m) => m.Formulario
-      ),
+      import(
+        './features/graficos/pages/grafico-comparativo/grafico-comparativo'
+      ).then((m) => m.GraficoComparativo),
   },
 ];

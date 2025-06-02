@@ -40,7 +40,15 @@ export class Listado {
   fechaInicio: Date = new Date();
   fechaFin: Date = new Date();
   movimientos: any[] = [];
-  columnas: string[] = ['fecha', 'fondo', 'comercio', 'montoTotal'];
+  columnas: string[] = [
+    'fecha',
+    'fondo',
+    'observaciones',
+    'nombreComercio',
+    'tipoDocumento',
+    'montoTotal',
+    'acciones',
+  ];
   busco = false;
 
   constructor(private gastosSvc: GastoService) {}
