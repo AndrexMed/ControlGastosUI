@@ -1,0 +1,175 @@
+<aside
+  class="h-screen bg-white shadow-md fixed top-16 left-0 transition-all duration-300 ease-in-out z-10"
+  [ngClass]="isCollapsed ? 'w-20' : 'w-64'"
+>
+  <!-- Botón para colapsar -->
+  <div class="flex justify-end p-2">
+    <button
+      (click)="toggleSidebar()"
+      class="text-gray-500 hover:text-indigo-600"
+    >
+      <svg
+        *ngIf="!isCollapsed"
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 12H5"
+        />
+      </svg>
+      <svg
+        *ngIf="isCollapsed"
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 12h14"
+        />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Menú -->
+  <nav class="flex flex-col mt-4 space-y-2">
+    <!-- Item simple -->
+    <a
+      routerLink="/"
+      class="flex items-center px-4 py-2 text-gray-700 hover:bg-indigo-100 transition rounded"
+    >
+      <svg
+        class="w-5 h-5"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6M3 21h18" />
+      </svg>
+      <span *ngIf="!isCollapsed" class="ml-3">Inicio</span>
+    </a>
+
+    <!-- Gestión con submenú -->
+    <div>
+      <button
+        class="w-full flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-indigo-100 transition rounded"
+        (click)="toggleSubmenu('gestion')"
+      >
+        <div class="flex items-center">
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M3 7h18M3 12h18M3 17h18" />
+          </svg>
+          <span *ngIf="!isCollapsed" class="ml-3">Movimientos</span>
+        </div>
+        <svg
+          *ngIf="!isCollapsed"
+          class="w-4 h-4 transform transition-transform duration-200"
+          [ngClass]="activeSubmenu === 'gestion' ? 'rotate-90' : ''"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </button>
+
+      <!-- Submenú -->
+      <div
+        *ngIf="!isCollapsed && activeSubmenu === 'gestion'"
+        class="ml-10 mt-1 flex flex-col space-y-1"
+      >
+        <a
+          routerLink="/crear-gasto"
+          class="text-sm text-gray-600 hover:text-indigo-600"
+          >Registro de Gastos</a
+        >
+        <a
+          routerLink="/listado-gastos"
+          class="text-sm text-gray-600 hover:text-indigo-600"
+          >Listado de gastos</a
+        >
+      </div>
+    </div>
+
+    <!-- Configuración -->
+    <div>
+      <button
+        class="w-full flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-indigo-100 transition rounded"
+        (click)="toggleSubmenu('configuracion')"
+      >
+        <div class="flex items-center">
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 8v4l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span *ngIf="!isCollapsed" class="ml-3">Configuración</span>
+        </div>
+        <svg
+          *ngIf="!isCollapsed"
+          class="w-4 h-4 transform transition-transform duration-200"
+          [ngClass]="activeSubmenu === 'configuracion' ? 'rotate-90' : ''"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </button>
+
+      <!-- Submenú -->
+      <div
+        *ngIf="!isCollapsed && activeSubmenu === 'configuracion'"
+        class="ml-10 mt-1 flex flex-col space-y-1"
+      >
+        <a
+          routerLink="/perfil"
+          class="text-sm text-gray-600 hover:text-indigo-600"
+          >Perfil</a
+        >
+        <a
+          routerLink="/preferencias"
+          class="text-sm text-gray-600 hover:text-indigo-600"
+          >Preferencias</a
+        >
+      </div>
+    </div>
+  </nav>
+</aside>

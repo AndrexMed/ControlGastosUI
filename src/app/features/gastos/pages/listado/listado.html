@@ -1,0 +1,67 @@
+<div class="p-4">
+  <h2 class="text-xl mb-4">Consulta de Movimientos de Gastos</h2>
+
+  <form class="flex items-center gap-4 mb-4" (ngSubmit)="buscarMovimientos()">
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha Inicio</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker1"
+        [(ngModel)]="fechaInicio"
+        name="fechaInicio"
+        required
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha Fin</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker2"
+        [(ngModel)]="fechaFin"
+        name="fechaFin"
+        required
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Buscar</button>
+  </form>
+
+  <table
+    mat-table
+    [dataSource]="movimientos"
+    class="mat-elevation-z8"
+    *ngIf="movimientos.length"
+  >
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell *matHeaderCellDef>Fecha</th>
+      <td mat-cell *matCellDef="let m">{{ m.fecha | date }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="fondo">
+      <th mat-header-cell *matHeaderCellDef>Fondo</th>
+      <td mat-cell *matCellDef="let m">{{ m.fondoMonetarioNombre }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="comercio">
+      <th mat-header-cell *matHeaderCellDef>Comercio</th>
+      <td mat-cell *matCellDef="let m">{{ m.nombreComercio }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="montoTotal">
+      <th mat-header-cell *matHeaderCellDef>Monto Total</th>
+      <td mat-cell *matCellDef="let m">{{ m.montoTotal | currency }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+  </table>
+
+  <p *ngIf="movimientos.length === 0 && busco">
+    No se encontraron movimientos.
+  </p>
+</div>
