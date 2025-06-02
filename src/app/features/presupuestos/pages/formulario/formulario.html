@@ -1,1 +1,102 @@
-<p>formulario works!</p>
+<div class="p-4">
+  <h2 class="text-xl mb-4">Gestión de Presupuestos</h2>
+
+  <form
+    class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6"
+    (ngSubmit)="guardarPresupuesto()"
+  >
+    <mat-form-field appearance="fill">
+      <mat-label>Mes</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [(ngModel)]="mesSeleccionado"
+        name="mesSeleccionado"
+        required
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker
+        #picker
+        startView="multi-year"
+        panelClass="month-picker"
+        (monthSelected)="mesSeleccionado = $event; picker.close()"
+        [startAt]="mesSeleccionado"
+        [startView]="'year'"
+      ></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Tipo de Gasto</mat-label>
+      <mat-select name="tipoGastoId" required [(ngModel)]="tipoGastoId">
+        <mat-option *ngFor="let tipo of tiposGasto" [value]="tipo.tipoGastoId">
+          {{ tipo.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Monto</mat-label>
+      <input matInput type="number" [(ngModel)]="monto" name="monto" required />
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      class="md:col-span-3"
+      type="submit"
+    >
+      Guardar Presupuesto
+    </button>
+  </form>
+
+  <h3 class="text-lg mb-2">Presupuestos del mes</h3>
+
+  <table
+    mat-table
+    [dataSource]="presupuestos"
+    class="mat-elevation-z8"
+    *ngIf="presupuestos.length"
+    
+  >
+    <ng-container matColumnDef="tipoGastoId">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let p">{{ p.tipoGastoId }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="tipo">
+      <th mat-header-cell *matHeaderCellDef>Tipo de Gasto</th>
+      <td mat-cell *matCellDef="let p">{{ p.nombreTipoGasto }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="monto">
+      <th mat-header-cell *matHeaderCellDef>Monto</th>
+      <td mat-cell *matCellDef="let p">{{ p.monto | currency }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="mes">
+      <th mat-header-cell *matHeaderCellDef>Mes</th>
+      <td mat-cell *matCellDef="let p">{{ p.mes }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="anio">
+      <th mat-header-cell *matHeaderCellDef>Año</th>
+      <td mat-cell *matCellDef="let p">{{ p.anio }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let p">
+        <button mat-icon-button color="warn">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+        <button mat-icon-button color="primary">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+  </table>
+</div>

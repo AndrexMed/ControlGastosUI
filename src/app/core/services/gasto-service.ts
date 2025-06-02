@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ApiService } from './api-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GastoService {
-  constructor(private api: ApiService) {}
+  private apiService = inject(ApiService);
 
   registrarGasto(data: any) {
-    return this.api.post('Gastos/registrar', data);
+    return this.apiService.post('Gastos/registrar', data);
   }
 
   getGastos(fechaInicio: Date, fechaFin: Date) {
@@ -16,7 +16,7 @@ export class GastoService {
       fechaInicio: this.formatDateOnly(fechaInicio),
       fechaFin: this.formatDateOnly(fechaFin),
     };
-    return this.api.get<any[]>('Gastos/movimientos', params);
+    return this.apiService.get<any[]>('Gastos/movimientos', params);
   }
 
   formatDateOnly(date: Date): string {
