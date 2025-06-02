@@ -12,13 +12,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GastoService } from '../../../../core/services/gasto-service';
 
-export interface GastosInterface {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
 const MATERIAL_MODULES = [
   MatFormFieldModule,
   MatInputModule,

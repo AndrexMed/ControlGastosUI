@@ -1,1 +1,114 @@
-<p>formulario works! deposito</p>
+<div>
+  <h2 class="text-xl mb-4">Registro de Depósitos</h2>
+
+  <form
+    class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6"
+    (ngSubmit)="guardarDeposito()"
+  >
+    <!-- Fecha del depósito -->
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [(ngModel)]="fecha"
+        name="fecha"
+        required
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <!-- Fondo Monetario -->
+    <mat-form-field appearance="fill">
+      <mat-label>Fondo Monetario</mat-label>
+      <mat-select
+        name="fondoMonetarioId"
+        required
+        [(ngModel)]="fondoMonetarioId"
+      >
+        @for (fondo of fondos; track $index) {
+        <mat-option [value]="fondo.fondoMonetarioId">
+          {{ fondo.nombre }}
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Monto del depósito -->
+    <mat-form-field appearance="fill">
+      <mat-label>Monto</mat-label>
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="monto"
+        name="monto"
+        required
+        min="1"
+      />
+    </mat-form-field>
+
+    <!-- Botón de guardar -->
+    <button
+      mat-raised-button
+      color="primary"
+      class="md:col-span-3"
+      type="submit"
+    >
+      Guardar Depósito
+    </button>
+  </form>
+
+   <div class="mb-4 border-b-2 border-blue-500 pb-2"></div>
+
+  @if (depositos.length) {
+  <div class="mb-6 flex items-center gap-4">
+    <mat-form-field appearance="fill">
+      <mat-label>Rango de fechas</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Desde" [(ngModel)]="fechaInicio" />
+        <input matEndDate placeholder="Hasta" [(ngModel)]="fechaFin" />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="getDepositos()">
+      Actualizar
+    </button>
+  </div>
+
+  <table mat-table [dataSource]="depositos" class="mat-elevation-z8">
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell *matHeaderCellDef>Fecha</th>
+      <td mat-cell *matCellDef="let p">{{ p.fecha | date }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nombreFondoMonetario">
+      <th mat-header-cell *matHeaderCellDef>Fondo Monetario</th>
+      <td mat-cell *matCellDef="let p">{{ p.nombreFondoMonetario }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="monto">
+      <th mat-header-cell *matHeaderCellDef>Monto</th>
+      <td mat-cell *matCellDef="let p">{{ p.monto | currency }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let p">
+        <button mat-icon-button color="warn">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+        <button mat-icon-button color="primary">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  }
+</div>

@@ -49,14 +49,15 @@
     </button>
   </form>
 
-  <h3 class="text-lg mb-2">Presupuestos del mes</h3>
+  <div class="mb-4 border-b-2 border-blue-500 pb-2"></div>
+
+  <h3 class="text-lg mb-2">Presupuestos</h3>
 
   <table
     mat-table
     [dataSource]="presupuestos"
     class="mat-elevation-z8"
     *ngIf="presupuestos.length"
-    
   >
     <ng-container matColumnDef="tipoGastoId">
       <th mat-header-cell *matHeaderCellDef>Id</th>

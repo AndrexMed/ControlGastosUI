@@ -3,7 +3,10 @@
   [ngClass]="isCollapsed ? 'w-20' : 'w-64'"
 >
   <!-- Botón para colapsar -->
-  <div class="flex justify-end p-2">
+  <div
+    class="flex"
+    [ngClass]="isCollapsed ? 'justify-center p-2' : 'justify-end p-2'"
+  >
     <button
       (click)="toggleSidebar()"
       class="text-gray-500 hover:text-indigo-600"
@@ -43,7 +46,7 @@
 
   <!-- Menú -->
   <nav class="flex flex-col mt-4 space-y-2">
-    <!-- Item simple -->
+    <!-- Inicio -->
     <a
       routerLink="/"
       class="flex items-center px-4 py-2 text-gray-700 hover:bg-indigo-100 transition rounded"
@@ -62,11 +65,11 @@
       <span *ngIf="!isCollapsed" class="ml-3">Inicio</span>
     </a>
 
-    <!-- Gestión con submenú -->
+    <!-- Movimientos -->
     <div>
       <button
         class="w-full flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-indigo-100 transition rounded"
-        (click)="toggleSubmenu('gestion')"
+        (click)="toggleSubmenu('movimientos')"
       >
         <div class="flex items-center">
           <svg
@@ -85,7 +88,7 @@
         <svg
           *ngIf="!isCollapsed"
           class="w-4 h-4 transform transition-transform duration-200"
-          [ngClass]="activeSubmenu === 'gestion' ? 'rotate-90' : ''"
+          [ngClass]="activeSubmenu === 'movimientos' ? 'rotate-90' : ''"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -99,23 +102,20 @@
         </svg>
       </button>
 
-      <!-- Submenú -->
       <div
-        *ngIf="!isCollapsed && activeSubmenu === 'gestion'"
-        class="ml-10 mt-1 flex flex-col space-y-1"
+        *ngIf="!isCollapsed && activeSubmenu === 'movimientos'"
+        class="ml-10 mt-1 flex flex-col space-y-1 border-l border-indigo-200 pl-2"
       >
         <a
           routerLink="/crear-gasto"
           class="text-sm text-gray-600 hover:text-indigo-600"
           >Registro de Gastos</a
         >
-
         <a
           routerLink="/crear-deposito"
           class="text-sm text-gray-600 hover:text-indigo-600"
-          >Registro de Depositos</a
+          >Registro de Depósitos</a
         >
-
         <a
           routerLink="/crear-presupuesto"
           class="text-sm text-gray-600 hover:text-indigo-600"
@@ -128,7 +128,7 @@
     <div>
       <button
         class="w-full flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-indigo-100 transition rounded"
-        (click)="toggleSubmenu('configuracion')"
+        (click)="toggleSubmenu('consultas')"
       >
         <div class="flex items-center">
           <svg
@@ -147,7 +147,7 @@
         <svg
           *ngIf="!isCollapsed"
           class="w-4 h-4 transform transition-transform duration-200"
-          [ngClass]="activeSubmenu === 'configuracion' ? 'rotate-90' : ''"
+          [ngClass]="activeSubmenu === 'consultas' ? 'rotate-90' : ''"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -161,10 +161,9 @@
         </svg>
       </button>
 
-      <!-- Submenú -->
       <div
-        *ngIf="!isCollapsed && activeSubmenu === 'configuracion'"
-        class="ml-10 mt-1 flex flex-col space-y-1"
+        *ngIf="!isCollapsed && activeSubmenu === 'consultas'"
+        class="ml-10 mt-1 flex flex-col space-y-1 border-l border-indigo-200 pl-2"
       >
         <a
           routerLink="/listado-gastos"
@@ -179,11 +178,11 @@
       </div>
     </div>
 
-    <!-- Configuración -->
+    <!-- Mantenimientos -->
     <div>
       <button
         class="w-full flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-indigo-100 transition rounded"
-        (click)="toggleSubmenu('configuracion')"
+        (click)="toggleSubmenu('mantenimientos')"
       >
         <div class="flex items-center">
           <svg
@@ -202,7 +201,7 @@
         <svg
           *ngIf="!isCollapsed"
           class="w-4 h-4 transform transition-transform duration-200"
-          [ngClass]="activeSubmenu === 'configuracion' ? 'rotate-90' : ''"
+          [ngClass]="activeSubmenu === 'mantenimientos' ? 'rotate-90' : ''"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -216,10 +215,9 @@
         </svg>
       </button>
 
-      <!-- Submenú -->
       <div
-        *ngIf="!isCollapsed && activeSubmenu === 'configuracion'"
-        class="ml-10 mt-1 flex flex-col space-y-1"
+        *ngIf="!isCollapsed && activeSubmenu === 'mantenimientos'"
+        class="ml-10 mt-1 flex flex-col space-y-1 border-l border-indigo-200 pl-2"
       >
         <a
           routerLink="/perfil"

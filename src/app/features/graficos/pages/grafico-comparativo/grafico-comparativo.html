@@ -1,1 +1,29 @@
-<p>grafico-comparativo works!</p>
+<div class="flex gap-2 items-center mb-2">
+  <mat-form-field appearance="fill">
+    <mat-label>Rango de fechas</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate placeholder="Desde" [(ngModel)]="fechaInicio" />
+      <input matEndDate placeholder="Hasta" [(ngModel)]="fechaFin" />
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="cargarDatos()">
+    Actualizar
+  </button>
+</div>
+
+<mat-card>
+  <mat-card-title>Gráfico Comparativo</mat-card-title>
+  <mat-card-content>
+    <canvas
+      baseChart
+      [datasets]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [type]="barChartType"
+    >
+    </canvas>
+  </mat-card-content>
+</mat-card>
